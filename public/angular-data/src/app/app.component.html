@@ -1,0 +1,99 @@
+<aw-wizard>
+  <aw-wizard-step stepTitle="Title of step 1">
+    <form name="restaurantForm" [formGroup]="restaurantForm">
+      <div class="form-group">
+        <div class="dropdown">
+          <label>Please Select Meal:</label>
+          <select class="form-control" formControlName="meal" [ngClass]="{ 'is-invalid': submitted && f.meal.errors }">
+            <option selected value="lunch">Lunch</option>
+            <option value="breakfast">BreakFast</option>
+            <option value="dinner">Dinner</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Please Enter Number Of People:</label>
+        <input class="form-control" type="number" placeholder="enter number of people..." formControlName="people"
+          [ngClass]="{ 'is-invalid': submitted && f.people.errors }">
+        <div *ngIf="submitted && f.people.errors" class="lbl-err">
+          <div *ngIf="f.people.errors.required">People is required</div>
+        </div>
+      </div>
+    </form>
+    <button class="button btn" (click)="getRestaurant()"
+      [disabled]="!(restaurantForm.controls['meal'].valid && restaurantForm.controls['people'].valid)" awNextStep>Next
+      Step</button>
+  </aw-wizard-step>
+
+
+  <aw-wizard-step stepTitle="Title of step 2" awOptionalStep>
+    <form name="restaurantForm" [formGroup]="restaurantForm">
+      <div class="form-group">
+        <label>select Restaurant Name:</label>
+        <select class="form-control" formControlName="restaurantName">
+          <option *ngFor="let resName of restaurantArray" [value]="resName">
+            {{resName}}
+          </option>
+        </select>
+      </div>
+    </form>
+    <button type="button" class="button btn1" awPreviousStep>previous step</button>
+    <button type="button" class="button btn" (click)="getdish()"
+      [disabled]="!restaurantForm.controls['restaurantName'].valid" awNextStep>
+      next step</button>
+  </aw-wizard-step>
+
+
+  <aw-wizard-step stepTitle="Title of step 3">
+    <form name="restaurantForm" [formGroup]="restaurantForm">
+      <div formArrayName="dishes" class="f1">
+        <div class="row">
+          <div class="col-4">
+            <label>Please select dish:</label>
+          </div>
+          <div class="col-4">
+            <label>Please Enter Number of serving:</label>
+          </div>
+        </div>
+        <div *ngFor="let item of dishes.controls; let pointIndex = index" [formGroupName]="pointIndex">
+          <div class="row">
+            <div class="form-group form-group col-4">
+              <select class="form-control" formControlName="dish">
+                <option *ngFor="let resName of dishList" [value]="resName.name">
+                  {{resName.name}}
+                </option>
+              </select>
+            </div>
+            <div class="form-group form-group col-4">
+              <input class="form-control" type="number" placeholder="enter number of people..."
+                formControlName="number">
+            </div>
+            <i class="fas fa-minus-circle" *ngIf="pointIndex != 0" (click)="deleteDishes(pointIndex)">--</i>
+          </div>
+        </div>
+        <i (click)="addDishes()" class="fas fa-plus-circle">++</i>
+      </div>
+    </form>
+    <button type="button" class="button btn1" awPreviousStep>Previous Step</button>
+    <button type="button" class="button btn" (click)="finishFunction()" awNextStep>Finish</button>
+  </aw-wizard-step>
+
+  <aw-wizard-step stepTitle="Title of step 4">
+    <div class="container">
+      <div class="row">
+        <label>Meal</label><label>:{{restaurantForm.controls['meal'].value}}</label>
+      </div>
+      <div class="row">
+        <label>No of People</label><label>:{{restaurantForm.controls['people'].value}}</label>
+      </div>
+      <div class="row">
+        <label>Restaurant</label><label>:{{restaurantForm.controls['restaurantName'].value}}</label>
+      </div>
+      <div class="row" *ngFor="let data of list;  let i = index">
+        <label class="L1">Dishes</label><label>:{{data.dish}}</label><label>:{{data.number}}</label>
+      </div>
+    </div>
+
+  </aw-wizard-step>
+</aw-wizard>
