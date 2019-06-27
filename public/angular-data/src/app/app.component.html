@@ -59,7 +59,7 @@
         <div *ngFor="let item of dishes.controls; let pointIndex = index" [formGroupName]="pointIndex">
           <div class="row">
             <div class="form-group form-group col-4">
-              <select class="form-control" formControlName="dish">
+              <select class="form-control" formControlName="dish" (click)="value($event)">
                 <option *ngFor="let resName of dishList" [value]="resName.name">
                   {{resName.name}}
                 </option>
@@ -69,31 +69,59 @@
               <input class="form-control" type="number" placeholder="enter number of people..."
                 formControlName="number">
             </div>
-            <i class="fas fa-minus-circle" *ngIf="pointIndex != 0" (click)="deleteDishes(pointIndex)">--</i>
+            <i class="fa fa-minus-circle" *ngIf="pointIndex != 0" (click)="deleteDishes(pointIndex)"
+              style="font-size:20px"></i>
           </div>
         </div>
-        <i (click)="addDishes()" class="fas fa-plus-circle">++</i>
+        <i (click)="addDishes()" style="font-size:20px" class="fa fa-plus-circle"></i>
       </div>
     </form>
     <button type="button" class="button btn1" awPreviousStep>Previous Step</button>
-    <button type="button" class="button btn" (click)="finishFunction()" awNextStep>Finish</button>
+    <button type="button" class="button btn" (click)="getAllDish()" [disabled]="!restaurantForm.valid" awNextStep>Next
+      Step</button>
   </aw-wizard-step>
 
   <aw-wizard-step stepTitle="Title of step 4">
     <div class="container">
-      <div class="row">
-        <label>Meal</label><label>:{{restaurantForm.controls['meal'].value}}</label>
+      <h2> Review</h2>
+      <br><br><br>
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <label class="col-sm-0 control-label">Meal:</label>
+        </div>
+        <div class="col-sm-4">
+          <p class="form-control-static">{{restaurantForm.controls['meal'].value}}</p>
+        </div>
       </div>
-      <div class="row">
-        <label>No of People</label><label>:{{restaurantForm.controls['people'].value}}</label>
+
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <label class="col-sm-0 control-label">No.ofPeople:</label>
+        </div>
+        <div class="col-sm-4">
+          <p class="form-control-static"> {{restaurantForm.controls['people'].value}}</p>
+        </div>
       </div>
-      <div class="row">
-        <label>Restaurant</label><label>:{{restaurantForm.controls['restaurantName'].value}}</label>
+
+      <div class="form-group row">
+        <div class="col-sm-2">
+          <label class="col-sm-0 control-label">Restaurant:</label>
+        </div>
+        <div class="col-sm-4">
+          <p class="form-control-static">{{restaurantForm.controls['restaurantName'].value}}</p>
+        </div>
       </div>
-      <div class="row" *ngFor="let data of list;  let i = index">
-        <label class="L1">Dishes</label><label>:{{data.dish}}</label><label>:{{data.number}}</label>
+      <div class="col-sm-8">
+        <div class="col-2">
+          <label class="col-sm-0  control-label">Dishes:</label>
+        </div>
+        <div class="form-group row" *ngFor="let data of list;  let i = index">
+          <label class="col-sm-2 control-label">{{data.dish}}:</label>
+          <label class="col-sm-4 control-label">{{data.number}}</label>
+        </div>
       </div>
     </div>
-
+    <button type="button" class="button btn1" awPreviousStep>Previous Step</button>
+    <button type="button" class="button btn" (click)="finish()">Finish</button>
   </aw-wizard-step>
 </aw-wizard>

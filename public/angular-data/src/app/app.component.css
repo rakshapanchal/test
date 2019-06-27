@@ -26,6 +26,15 @@ label {
     padding-top: 4%;
 }
 
+.container {
+    text-align: right;
+    margin-top: 6%;
+    border-radius: 5px;
+    background-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 128px 0 rgba(0, 0, 0, 0.55);
+    width: 36%;
+}
+
 .btn1 {
     margin: 2%;
     text-transform: none;
@@ -36,6 +45,7 @@ label {
     margin-top: 4%;
 }
 
-.L1 {
-    
+h2 {
+    margin-top: 0;
+    text-align: center;
 }
