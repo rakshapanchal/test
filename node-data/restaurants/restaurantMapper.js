@@ -33,18 +33,6 @@ function bedRequestRes(message) {
     return responseObj;
 }
 
-/**for unAuthorized access
- * 
- * @param {*string} message response message
- */
-function unAuthorized() {
-    var responseObj = {
-        "responsecode": restaurantCode.unAuthorized,
-        "responseMessage": restaurantMsg.unAuthAccess,
-    }
-    return responseObj;
-}
-
 /**Permission Denied Response */
 function forBidden() {
     var responseObj = {
@@ -80,8 +68,6 @@ module.exports = {
     bedRequestRes,/**Bed Request Response */
 
     dataNotFound,/**Data Not Found response */
-
-    unAuthorized,/**for unAuthorized access*/
 
     forBidden,  /**Permission Denied Response */
 

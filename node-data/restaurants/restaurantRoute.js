@@ -2,9 +2,9 @@
 // ===================================Load Internal Modules================================================================================
 const restaurantRouter = require("express").Router()
 const restaurantFacade = require('./restaurantFacade')
-// const resHndlr = require("../../responseHandler");
+
 //  ====================================Load Modules End======================================================================
-console.log("======================>In rouer")
+
 // ***************************************for admin pannel*****************************************************************
 
 /**calling facade getRestaurants function from route */
